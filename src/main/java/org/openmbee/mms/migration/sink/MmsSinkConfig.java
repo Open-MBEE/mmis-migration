@@ -18,6 +18,9 @@ public class MmsSinkConfig {
     private static Logger LOG = LoggerFactory.getLogger(MmsSinkConfig.class);
 
     private String type;
+    //TODO: Fill in with other required configuration (admin credentials, url, etc)
+    //TODO: consider moving to arguments
+
     private ApplicationContext applicationContext;
 
     public void setType(String type) {
@@ -42,8 +45,4 @@ public class MmsSinkConfig {
         }
     }
 
-    @Bean("MMS4")
-    public MmsSink getMmsSink4() {
-        return new MmsSink4();
-    }
 }

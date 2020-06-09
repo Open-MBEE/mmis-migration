@@ -19,6 +19,9 @@ public class MmsSourceConfig {
     private static Logger LOG = LoggerFactory.getLogger(MmsSourceConfig.class);
 
     private String type;
+    //TODO: Fill in with other required configuration (admin credentials, url, etc)
+    //TODO: consider moving to arguments
+
     private ApplicationContext applicationContext;
 
     public void setType(String type) {

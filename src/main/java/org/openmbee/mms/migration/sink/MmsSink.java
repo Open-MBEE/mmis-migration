@@ -1,4 +1,8 @@
 package org.openmbee.mms.migration.sink;
 
-public interface MmsSink {
+import org.openmbee.mms.migration.common.Sink;
+import org.openmbee.mms.migration.translate.MmsSyntax;
+
+public interface MmsSink extends Sink {
+    MmsSyntax getMmsSyntax();
 }
