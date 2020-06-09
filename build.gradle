@@ -18,5 +18,5 @@ group 'org.openmbee'
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter:2.3.0.RELEASE'
     implementation 'org.jgrapht:jgrapht-core:1.4.0'
-    testImplementation group: 'junit', name: 'junit', version: '4.13'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.0.RELEASE'
 }

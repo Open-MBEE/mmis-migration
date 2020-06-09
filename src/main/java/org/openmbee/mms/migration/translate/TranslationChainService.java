@@ -9,12 +9,12 @@ import org.openmbee.mms.migration.sink.MmsSink;
 import org.openmbee.mms.migration.sink.MmsSinkConfig;
 import org.openmbee.mms.migration.source.MmsSource;
 import org.openmbee.mms.migration.source.MmsSourceConfig;
-import org.openmbee.mms.migration.translate.translators.DirectTranslator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -55,7 +55,7 @@ public class TranslationChainService {
 
         if(source.getMmsSyntax() == sink.getMmsSyntax()) {
             //No Translation required
-            return new TranslationChain(source, sink, List.of(new DirectTranslator(source.getMmsSyntax())));
+            return new TranslationChain(source, sink, Collections.emptyList());
         }
 
         DijkstraShortestPath<MmsSyntax, Translator> dijkstraShortestPath = new DijkstraShortestPath<>(translators);
