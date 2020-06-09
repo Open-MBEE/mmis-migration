@@ -46,8 +46,4 @@ public class MmsSourceConfig {
         }
     }
 
-    @Bean("MMS3")
-    public MmsSource getMmsSource3() {
-        return new MmsSource3();
-    }
 }

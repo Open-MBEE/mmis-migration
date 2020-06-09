@@ -28,4 +28,12 @@ public class TranslationChain {
     public void run(Job job) {
         job.run(source, mmsSinkChain);
     }
+
+    MmsSource getSource() {
+        return source;
+    }
+
+    MmsSinkChain getMmsSinkChain() {
+        return mmsSinkChain;
+    }
 }

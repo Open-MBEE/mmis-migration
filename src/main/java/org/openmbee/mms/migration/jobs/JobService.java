@@ -29,13 +29,16 @@ public class JobService {
             }
         }
 
-        if(jobNames == null || jobNames.length == 0) {
+        if(jobNames == null) {
             //TODO: return default jobs?
-            throw new RuntimeException("Invalid jobs argument");
+            throw new RuntimeException("Missing jobs argument");
         }
 
         List<Job> result = new ArrayList<>(jobNames.length);
         for(String jobName : jobNames) {
+            if(jobName.isBlank()) {
+                 continue;
+            }
             try {
                 Job job = applicationContext.getBean(jobName + "_job", Job.class);
                 result.add(job);
@@ -44,6 +47,12 @@ public class JobService {
                 throw ex;
             }
         }
+
+        if(result.size() == 0) {
+            //TODO: return default jobs?
+            throw new RuntimeException("Invalid jobs argument");
+        }
+
         return result;
     }
 }
