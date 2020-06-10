@@ -3,6 +3,7 @@ package org.openmbee.mms.migration.jobs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +17,21 @@ public class JobService {
 
     private ApplicationContext applicationContext;
 
+    private ApplicationArguments applicationArguments;
+
     @Autowired
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
-    public List<Job> getJobs(String... args) {
+    @Autowired
+    public void setApplicationArguments(ApplicationArguments applicationArguments) {
+        this.applicationArguments = applicationArguments;
+    }
+
+    public List<Job> getJobs() {
         String[] jobNames = null;
-        for(String arg : args) {
+        for(String arg : applicationArguments.getSourceArgs()) {
             if(arg.startsWith("-jobs=")) {
                 jobNames = arg.substring(6).split("\\|");
             }

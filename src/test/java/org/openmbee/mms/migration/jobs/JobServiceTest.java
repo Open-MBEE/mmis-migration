@@ -1,6 +1,7 @@
 package org.openmbee.mms.migration.jobs;
 
 import org.junit.Test;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 
 import java.util.List;
@@ -17,10 +18,14 @@ public class JobServiceTest {
         Job job1 = mock(Job.class);
         when(context.getBean("ONE_job", Job.class)).thenReturn(job1);
 
+        ApplicationArguments arguments = mock(ApplicationArguments.class);
+        when(arguments.getSourceArgs()).thenReturn(new String[]{"-blah", "-jobs=ONE"});
+
         JobService jobService = new JobService();
         jobService.setApplicationContext(context);
+        jobService.setApplicationArguments(arguments);
 
-        List<Job> jobs = jobService.getJobs("-blah", "-jobs=ONE");
+        List<Job> jobs = jobService.getJobs();
 
         assertNotNull(jobs);
         assertEquals(1, jobs.size());
@@ -37,10 +42,14 @@ public class JobServiceTest {
         when(context.getBean("TWO_job", Job.class)).thenReturn(job2);
         when(context.getBean("THREE_job", Job.class)).thenReturn(job3);
 
+        ApplicationArguments arguments = mock(ApplicationArguments.class);
+        when(arguments.getSourceArgs()).thenReturn(new String[]{"-blah", "-jobs=ONE|TWO|THREE"});
+
         JobService jobService = new JobService();
         jobService.setApplicationContext(context);
+        jobService.setApplicationArguments(arguments);
 
-        List<Job> jobs = jobService.getJobs("-blah", "-jobs=ONE|TWO|THREE");
+        List<Job> jobs = jobService.getJobs();
 
         assertNotNull(jobs);
         assertEquals(3, jobs.size());
@@ -58,11 +67,15 @@ public class JobServiceTest {
         when(context.getBean("TWO_job", Job.class)).thenReturn(job2);
         when(context.getBean("THREE_job", Job.class)).thenThrow(new RuntimeException());
 
+        ApplicationArguments arguments = mock(ApplicationArguments.class);
+        when(arguments.getSourceArgs()).thenReturn(new String[]{"-blah", "-jobs=ONE|TWO|THREE"});
+
         JobService jobService = new JobService();
         jobService.setApplicationContext(context);
+        jobService.setApplicationArguments(arguments);
 
         try {
-            List<Job> jobs = jobService.getJobs("-blah", "-jobs=ONE|TWO|THREE");
+            List<Job> jobs = jobService.getJobs();
             fail();
         } catch(Exception ex) {
 
@@ -73,11 +86,15 @@ public class JobServiceTest {
     public void testEmptyJobs() {
         ApplicationContext context = mock(ApplicationContext.class);
 
+        ApplicationArguments arguments = mock(ApplicationArguments.class);
+        when(arguments.getSourceArgs()).thenReturn(new String[]{"-blah", "-jobs="});
+
         JobService jobService = new JobService();
         jobService.setApplicationContext(context);
+        jobService.setApplicationArguments(arguments);
 
         try {
-            List<Job> jobs = jobService.getJobs("-blah", "-jobs=");
+            List<Job> jobs = jobService.getJobs();
             fail();
         } catch(Exception ex) {
 
@@ -88,11 +105,15 @@ public class JobServiceTest {
     public void testNoJobs() {
         ApplicationContext context = mock(ApplicationContext.class);
 
+        ApplicationArguments arguments = mock(ApplicationArguments.class);
+        when(arguments.getSourceArgs()).thenReturn(new String[]{"-blah"});
+
         JobService jobService = new JobService();
         jobService.setApplicationContext(context);
+        jobService.setApplicationArguments(arguments);
 
         try {
-            List<Job> jobs = jobService.getJobs("-blah");
+            List<Job> jobs = jobService.getJobs();
             fail();
         } catch(Exception ex) {
 

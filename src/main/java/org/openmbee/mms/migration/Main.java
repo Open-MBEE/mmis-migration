@@ -39,7 +39,7 @@ public class Main implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        List<Job> jobList = jobService.getJobs(args);
+        List<Job> jobList = jobService.getJobs();
         LOG.debug("Found the following Jobs: ");
         jobList.forEach(v -> LOG.debug("\t" + v.toString()));
 

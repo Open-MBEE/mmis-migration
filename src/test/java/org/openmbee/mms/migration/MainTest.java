@@ -23,7 +23,7 @@ public class MainTest {
         JobService jobService = mock(JobService.class);
         Job job1 = mock(Job.class);
         Job job2 = mock(Job.class);
-        when(jobService.getJobs(any())).thenReturn(List.of(job1, job2));
+        when(jobService.getJobs()).thenReturn(List.of(job1, job2));
 
         Main main = new Main();
         main.setJobService(jobService);
